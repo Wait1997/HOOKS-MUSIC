@@ -7,21 +7,22 @@ import Scroll from '../../baseUI/scroll/index';
 import { Content } from './style';
 import { forceCheck } from 'react-lazyload';
 import Loading from '../../baseUI/loading-v2/index';
-import {renderRoutes} from 'react-router-config';
+import { renderRoutes } from 'react-router-config';
+import { EnterLoading } from '../Singers/style';
 
 function Recommend(props) {
 
   // console.log(props);
 
-  const { bannerList, recommendList, enterLoading } = props;
+  const { bannerList, recommendList, enterLoading, songsCount } = props;
 
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props;
 
   useEffect(() => {
-    if(!bannerList.size) {
+    if (!bannerList.size) {
       getBannerDataDispatch();
     }
-    if(!recommendList.size) {
+    if (!recommendList.size) {
       getRecommendListDataDispatch();
     }
   }, []);
@@ -30,14 +31,14 @@ function Recommend(props) {
   const recommendListJS = recommendList ? recommendList.toJS() : [];
 
   return (
-    <Content play={props.songsCount}>
+    <Content play={songsCount}>
       <Scroll className="list" onScroll={forceCheck}>
         <div>
           <Slider bannerList={bannerListJS} />
           <RecommendList recommendList={recommendListJS} />
         </div>
       </Scroll>
-      {enterLoading ? <Loading></Loading> : null}
+      {enterLoading ? <EnterLoading><Loading></Loading></EnterLoading> : null}
       {renderRoutes(props.route.routes)}
     </Content>
   );
@@ -67,4 +68,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
+// 将ui组件包装成容器组件
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Recommend));

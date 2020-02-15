@@ -2,7 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import MiniPlayer from './miniPlayer/index';
 import NormalPlayer from './normalPlayer/index';
-import { getSongUrl, isEmptyObject, shuffle, findIndex } from '../../api/utils';
+import {
+  getSongUrl,
+  isEmptyObject,
+  shuffle,
+  findIndex
+} from '../../api/utils';
 import {
   changeCurrentSong,
   changeFullScreen,
@@ -179,7 +184,7 @@ function Player(props) {
       return;
     }
     let index = currentIndex - 1;
-    if (index < 0) index = playList.length - 1;
+    if (index === 0) index = playList.length - 1;
     if (!playing) togglePlayingDispatch(true);
     changeCurrentIndexDispatch(index);
   };

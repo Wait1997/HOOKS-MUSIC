@@ -6,16 +6,13 @@ import { Container, List, ListItem, SongList } from './style';
 import Loading from '../../baseUI/loading/index';
 import Scroll from '../../baseUI/scroll/index';
 import { renderRoutes } from 'react-router-config';
+import { EnterLoading } from './../Singers/style';
 
 function Rank(props) {
-  const { rankList: list, loading } = props;
+  const { rankList: list, loading, songsCount } = props;
   const { getRankListDataDispatch } = props;
 
   let rankList = list ? list.toJS() : [];
-
-  let globalStartIndex = filterIndex(rankList);
-  let officialList = rankList.slice(0, globalStartIndex);
-  let globalList = rankList.slice(globalStartIndex);
 
   useEffect(() => {
     if (!rankList.length) {
@@ -60,17 +57,20 @@ function Rank(props) {
     ) : null;
   };
 
+  let globalStartIndex = filterIndex(rankList);
+  let officialList = rankList.slice(0, globalStartIndex);
+  let globalList = rankList.slice(globalStartIndex);
   let displayStyle = loading ? { "display": "none" } : { "display": "" };
 
   return (
-    <Container play={props.songsCount}>
+    <Container play={songsCount}>
       <Scroll>
         <div>
           <h1 className="offical" style={displayStyle}> 官方榜 </h1>
           {renderRankList(officialList)}
           <h1 className="global" style={displayStyle}> 全球榜 </h1>
           {renderRankList(globalList, true)}
-          {loading ? <Loading></Loading> : null}
+          {loading ? <EnterLoading><Loading></Loading></EnterLoading> : null}
         </div>
       </Scroll>
       {renderRoutes(props.route.routes)}

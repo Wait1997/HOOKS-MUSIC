@@ -6,26 +6,26 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: ${props => props.play > 0 ? "60px" : 0};
+  bottom: ${props => props.play > 0 ? "60px": 0};
   width: 100%;
   z-index: 100;
   overflow: hidden;
   background: #f2f3f4;
-  tranform-origin: right bottom;
-  &.fly-enter, &.fly-appear {
+  transform-origin: right bottom;
+  &.fly-enter, &.fly-appear{
     opacity: 0;
-    transform: tranlate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
   }
-  &.fly-enter-active, &.fly-appear-active {
+  &.fly-enter-active, &.fly-appear-active{
     opacity: 1;
     transition: all .3s;
     transform: translate3d(0, 0, 0);
   }
-  &.fly-exit {
+  &.fly-exit{
     opacity: 1;
     transform: translate3d(0, 0, 0);
   }
-  &.fly-exit-active {
+  &.fly-exit-active{
     opacity: 0;
     transition: all .3s;
     transform: translate3d(100%, 0, 0);

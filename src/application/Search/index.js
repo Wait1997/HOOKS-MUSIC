@@ -13,10 +13,9 @@ import Loading from '../../baseUI/loading/index';
 import Scroll from '../../baseUI/scroll';
 import MusicalNote from '../../baseUI/music-note';
 
-function Search(props) {
-  //控制动画
-  const [show, setShow] = useState(false);
+const Search = (props) => {
   const [query, setQuery] = useState('');
+  const [show, setShow] = useState(false);
   const musicNoteRef = useRef();
 
   const {
@@ -39,9 +38,9 @@ function Search(props) {
 
   useEffect(() => {
     setShow(true);
-    if (!hotList.size) {
+    if (!hotList.size)
       getHotKeyWordsDispatch();
-    }
+    // eslint-disable-next-line
   }, []);
 
   const renderHotKey = () => {
@@ -54,24 +53,19 @@ function Search(props) {
               <li className="item" key={item.first} onClick={() => setQuery(item.first)}>
                 <span>{item.first}</span>
               </li>
-            );
+            )
           })
         }
       </ul>
-    );
+    )
   };
-
-  //由于是传给子组件的方法 尽量用 useCallBack() 包裹 已使得在依赖未改变 始终给子组件传递的是相同的引用
-  const searchBack = useCallback(() => {
-    setShow(false);
-  }, []);
 
   const handleQuery = (q) => {
     setQuery(q);
     if (!q) return;
     changeEnterLoadingDispatch(true);
     getSuggestListDispatch(q);
-  };
+  }
 
   const renderSingers = () => {
     let singers = suggestList.artists;
@@ -90,11 +84,11 @@ function Search(props) {
                 </div>
                 <span className="name">歌手: {item.name}</span>
               </ListItem>
-            );
+            )
           })
         }
       </List>
-    );
+    )
   };
 
   const renderAlbum = () => {
@@ -118,13 +112,17 @@ function Search(props) {
           })
         }
       </List>
-    );
+    )
   };
 
   const selectItem = (e, id) => {
     getSongDetailDispatch(id);
     musicNoteRef.current.startAnimation({ x: e.nativeEvent.clientX, y: e.nativeEvent.clientY });
-  };
+  }
+
+  const searchBack = useCallback(() => {
+    setShow(false);
+  }, []);
 
   const renderSongs = () => {
     return (
@@ -140,11 +138,11 @@ function Search(props) {
                   </span>
                 </div>
               </li>
-            );
+            )
           })
         }
       </SongItem>
-    );
+    )
   };
 
   return (
@@ -167,7 +165,6 @@ function Search(props) {
                 <h1 className="title">热门搜索</h1>
                 {renderHotKey()}
               </HotKey>
-
             </div>
           </Scroll>
         </ShortcutWrapper>
@@ -185,8 +182,9 @@ function Search(props) {
         <MusicalNote ref={musicNoteRef}></MusicalNote>
       </Container>
     </CSSTransition>
-  );
+  )
 }
+
 
 // 映射Redux全局的state到组件的props上
 const mapStateToProps = (state) => ({
@@ -204,7 +202,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(getHotKeyWords());
     },
     changeEnterLoadingDispatch(data) {
-      dispatch(changeEnterLoading(data));
+      dispatch(changeEnterLoading(data))
     },
     getSuggestListDispatch(data) {
       dispatch(getSuggestList(data));
@@ -212,7 +210,11 @@ const mapDispatchToProps = (dispatch) => {
     getSongDetailDispatch(id) {
       dispatch(getSongDetail(id));
     }
-  };
+  }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Search));
+// 将ui组件包装成容器组件
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Search));

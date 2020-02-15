@@ -23,13 +23,13 @@ export const Tab = styled.div`
   flex-direction: row;
   justify-content: space-around;
   background: ${style["theme-color"]};
-  a {
+  a{
     flex: 1;
     padding: 2px 0;
     font-size: 14px;
     color: #e4e4e4;
-    &.selected {
-      span {
+    &.selected{
+      span{
         padding: 3px 0;
         font-weight: 700;
         color: #f1f1f1;

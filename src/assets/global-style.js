@@ -1,16 +1,15 @@
-// 扩大可点击区域
 const extendClick = () => {
   return `
     position: relative;
-    &:before {
+    &:before{
       content: '';
       position: absolute;
       top: -10px; bottom: -10px; left: -10px; right: -10px;
     };
-  `
+  `;
 };
 
-// 单行溢出隐藏
+// 单行文本溢出
 const noWrap = () => {
   return `
     text-overflow: ellipsis;
@@ -24,7 +23,7 @@ const bgFull = () => {
     background-position: 50%;
     background-size: contain;
     background-repeat: no-repeat;
-  `;
+  `
 };
 
 export default {
@@ -48,4 +47,4 @@ export default {
   extendClick,
   noWrap,
   bgFull
-} 
+};

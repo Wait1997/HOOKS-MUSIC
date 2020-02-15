@@ -56,8 +56,9 @@ export const SongList = styled.div`
       background: ${style["background-color"]};
       color: ${style["font-color-desc"]};
     }
-}
-`
+  }
+`;
+
 export const SongItem = styled.ul`
   >li{
     display: flex;

@@ -14,7 +14,7 @@ function Home(props) {
     <div>
       <Top>
         <span className="iconfont menu">&#xe65c;</span>
-        <span className="title">云音乐</span>
+        <span className="title">幻听</span>
         <span className="iconfont search" onClick={() => props.history.push('/search')}>&#xe62b;</span>
       </Top>
       <Tab>

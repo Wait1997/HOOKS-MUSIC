@@ -7,6 +7,7 @@ import AlbumDetail from '../../components/album-detail/index';
 import { connect } from 'react-redux';
 import { getAlbumList, changePullUpLoading, changeEnterLoading } from './store/actionCreators';
 import Loading from '../../baseUI/loading/index';
+import { EnterLoading } from '../Singers/style';
 import style from '../../assets/global-style';
 import { isEmptyObject } from '../../api/utils';
 import { HEADER_HEIGHT } from '../../api/config';
@@ -80,11 +81,11 @@ function Album(props) {
               pullUpLoading={pullUpLoading}
               bounceTop={false}
             >
-              <AlbumDetail currentAlbum={currentAlbumJS} pullUpLoading={pullUpLoading}></AlbumDetail>
+              <AlbumDetail currentAlbum={currentAlbumJS} pullUpLoading={pullUpLoading} musicAnimation={musicAnimation}></AlbumDetail>
             </Scroll>
           ) : null
         }
-        {enterLoading ? <Loading></Loading> : null}
+        {enterLoading ? <EnterLoading><Loading></Loading></EnterLoading> : null}
         <MusicNote ref={musicNoteRef}></MusicNote>
       </Container>
     </CSSTransition>

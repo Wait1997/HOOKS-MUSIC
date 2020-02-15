@@ -91,13 +91,13 @@ function Singers(props) {
       <NavContainer>
         <Horizen
           list={categoryTypes}
-          title={"分类（默认热门）："}
+          title={"分类(默认热门):"}
           handleClick={(val) => handleUpdateCatetory(val)}
           oldVal={category}
         />
         <Horizen
           list={alphaTypes}
-          title={"首字母："}
+          title={"首字母:"}
           handleClick={(val) => handleUpdateAlpha(val)}
           oldVal={alpha}
         />
@@ -115,7 +115,7 @@ function Singers(props) {
         </Scroll>
       </ListContainer>
       {/* 入场加载动画 */}
-      {enterLoading ? <Loading></Loading> : null}
+      {enterLoading ? <EnterLoading><Loading></Loading></EnterLoading> : null}
       {renderRoutes(props.route.routes)}
     </div>
   );

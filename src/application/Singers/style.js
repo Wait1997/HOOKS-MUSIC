@@ -8,13 +8,15 @@ export const NavContainer = styled.div`
   width: 100%;
   padding: 5px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const ListContainer = styled.div`
   position: fixed;
   top: 160px;
   left: 0;
-  bottom: 0;
+  bottom: ${props => props.play ? "60px": 0};
   overflow: hidden;
   width: 100%;
 `;

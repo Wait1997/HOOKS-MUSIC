@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Scroll from '../scroll/index';
 import { PropTypes } from 'prop-types';
 import {List,ListItem} from './style';
 
 function Horizen(props) {
+  const [refreshCategoryScroll, setRefreshCategoryScroll] = useState(false);
   const { list, oldVal, title } = props;
   const { handleClick } = props;
 
@@ -17,11 +18,17 @@ function Horizen(props) {
     Array.from(tagElem).forEach(ele => {
       totalWidth += ele.offsetWidth;
     });
+    totalWidth += 2;
     categoryDom.style.width = `${totalWidth}px`;
-  }, []);
+    setRefreshCategoryScroll(true);
+  }, [refreshCategoryScroll]);
+
+  const clickHandle = (item) => {
+    handleClick(item.key);
+  }
 
   return (
-    <Scroll direction={"horizental"}>
+    <Scroll direction={"horizental"} refresh={true}>
       <div ref={Category}>
         <List>
           <span>{title}</span>
@@ -31,7 +38,7 @@ function Horizen(props) {
                 <ListItem
                   key={item.key}
                   className={`${oldVal === item.key ? 'selected' : ''}`}
-                  onClick={() => handleClick(item.key)}
+                  onClick={() => clickHandle(item)}
                 >
                   {item.name}
                 </ListItem>
@@ -52,15 +59,11 @@ function Horizen(props) {
  */
 Horizen.defaultProps = {
   list: [],
-  oldVal: '',
-  title: '',
   handleClick: null
 };
 
 Horizen.propTypes = {
   list: PropTypes.array,
-  oldVal: PropTypes.string,
-  title: PropTypes.string,
   handleClick: PropTypes.func
 };
 
