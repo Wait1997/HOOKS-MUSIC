@@ -7,12 +7,6 @@ const RankComponent = lazy(() => import('../application/Rank'));
 const AlbumComponent = lazy(() => import('../application/Album'));
 const SingerComponent = lazy(() => import('../application/Singer'));
 const SearchComponent = lazy(() => import('../application/Search'));
-// import Recommend from '../application/Recommend';
-// import Singers from '../application/Singers';
-// import Rank from '../application/Rank';
-// import Album from '../application/Album';
-// import Singer from '../application/Singer';
-// import Search from '../application/Search';
 
 const SuspenseComponent = Component => props => {
   return (
@@ -80,62 +74,3 @@ export default [
     ]
   }
 ];
-
-// export default [
-//   {
-//     path: "/",
-//     component: Home,
-//     routes: [
-//       {
-//         path: "/",
-//         exact: true,
-//         render: () => (
-//           <Redirect to={"/recommend"} />
-//         )
-//       },
-//       {
-//         path: "/recommend",
-//         component: Recommend,
-//         routes: [
-//           {
-//             path: "/recommend/:id",
-//             component: Album
-//           }
-//         ]
-//       },
-//       {
-//         path: "/singers",
-//         component: Singers,
-//         routes: [
-//           {
-//             path: "/singers/:id",
-//             component: Singer,
-//           }
-//         ]
-//       },
-//       {
-//         path: "/rank",
-//         component: Rank,
-//         key: "rank",
-//         routes: [
-//           {
-//             path: "/rank/:id",
-//             component: Album
-//           }
-//         ],
-//       },
-//       {
-//         path: "/album/:id",
-//         exact: true,
-//         key: "album",
-//         component: Album
-//       },
-//       {
-//         path: "/search",
-//         exact: true,
-//         key: "search",
-//         component: Search
-//       }
-//     ]
-//   }
-// ];

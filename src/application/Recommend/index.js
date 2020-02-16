@@ -12,12 +12,13 @@ import { EnterLoading } from '../Singers/style';
 
 function Recommend(props) {
 
-  // console.log(props);
+  console.log(props);
 
   const { bannerList, recommendList, enterLoading, songsCount } = props;
 
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props;
 
+  // 相当于componentDidMount中调用
   useEffect(() => {
     if (!bannerList.size) {
       getBannerDataDispatch();
@@ -44,7 +45,7 @@ function Recommend(props) {
   );
 }
 
-//映射 Redux 全局的 state 到组件的 props 上
+//映射 Redux 全局的state到组件的 props 上
 const mapStateToProps = (state) => ({
   /**
    * 不要在这里将数据 toJS
@@ -54,12 +55,14 @@ const mapStateToProps = (state) => ({
   bannerList: state.getIn(['recommend', 'bannerList']),
   recommendList: state.getIn(['recommend', 'recommendList']),
   enterLoading: state.getIn(['recommend', 'enterLoading']),
+  // 获取播放列表歌曲的数量
   songsCount: state.getIn(['player', 'playList']).size
 });
-// 映射dispatch 到 props上
+// 映射dispatch 到 props上 暴露一个对象
 const mapDispatchToProps = (dispatch) => {
   return {
     getBannerDataDispatch() {
+      // diapatch 调用getBannerList()
       dispatch(actionTypes.getBannerList());
     },
     getRecommendListDataDispatch() {
@@ -69,4 +72,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 // 将ui组件包装成容器组件
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Recommend));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Recommend));

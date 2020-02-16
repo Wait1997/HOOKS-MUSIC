@@ -1,9 +1,16 @@
+/**
+ * 接口请求回来的数据
+ * 统一管理
+ */
+
 import {axiosInstance} from './config';
 
+// 轮播图
 export const getBannerRequest = () => {
   return axiosInstance.get('/banner');
 };
 
+// 推荐歌单
 export const getRecommendListRequest = () => {
   return axiosInstance.get('/personalized');
 };

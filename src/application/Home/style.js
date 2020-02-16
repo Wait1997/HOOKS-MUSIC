@@ -23,7 +23,7 @@ export const Tab = styled.div`
   flex-direction: row;
   justify-content: space-around;
   background: ${style["theme-color"]};
-  a{
+  a {
     flex: 1;
     padding: 2px 0;
     font-size: 14px;
