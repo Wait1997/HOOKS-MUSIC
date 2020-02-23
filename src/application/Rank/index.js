@@ -6,7 +6,7 @@ import { Container, List, ListItem, SongList } from './style';
 import Loading from '../../baseUI/loading/index';
 import Scroll from '../../baseUI/scroll/index';
 import { renderRoutes } from 'react-router-config';
-import { EnterLoading } from './../Singers/style';
+import { EnterLoading } from '../Singers/style';
 
 function Rank(props) {
   const { rankList: list, loading, songsCount } = props;
@@ -57,9 +57,13 @@ function Rank(props) {
     ) : null;
   };
 
+  // 获取第一个没有歌名的排行
   let globalStartIndex = filterIndex(rankList);
+  // 热歌榜(有歌名的列表)
   let officialList = rankList.slice(0, globalStartIndex);
+  // 全球榜(没有歌名的列表)
   let globalList = rankList.slice(globalStartIndex);
+
   let displayStyle = loading ? { "display": "none" } : { "display": "" };
 
   return (
@@ -92,4 +96,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Rank));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Rank));

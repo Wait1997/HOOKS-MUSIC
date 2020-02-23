@@ -26,7 +26,7 @@ const ToastWrapper = styled.div`
   .text {
     line-height: 50px;
     text-align: center;
-    color: #fff;
+    color: ${style["theme-color"]};
     font-size: ${style["font-size-l"]};
   }
 `;
@@ -38,6 +38,7 @@ const Toast = forwardRef((props, ref) => {
   const { text } = props;
   //外面组件拿到组件ref的方法，用useImperativeHandle这个hook
   useImperativeHandle(ref, () => ({
+    // 向外以对象暴露一个新方法
     show() {
       // 防抖处理
       if(timer) clearTimeout(timer);

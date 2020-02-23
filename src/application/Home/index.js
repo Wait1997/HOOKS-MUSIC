@@ -30,6 +30,7 @@ function Home(props) {
       </Tab>
       {/*推荐 歌手 排行榜 路由之间切换*/}
       {renderRoutes(route.routes)}
+      {/*播放器*/}
       <Player />
     </div>
   );

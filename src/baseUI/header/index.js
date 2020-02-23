@@ -26,6 +26,7 @@ const HeaderContainer = styled.div`
 `
 // 处理函数组件拿不到ref的问题,所以用forwardRef
 const Header = React.forwardRef((props, ref) => {
+  // handleClick回调函数 子传父
   const { handleClick, title, isMarquee } = props;
   return (
     <HeaderContainer ref={ref}>
@@ -35,14 +36,13 @@ const Header = React.forwardRef((props, ref) => {
         isMarquee ? <marquee><h1>{title}</h1></marquee> :
           <h1>{title}</h1>
       }
-
     </HeaderContainer>
   )
 })
 
 Header.defaultProps = {
   handleClick: () => { },
-  title: "标题",
+  title: "歌单",
   isMarquee: false
 };
 

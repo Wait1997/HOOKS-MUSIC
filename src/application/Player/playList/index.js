@@ -23,6 +23,7 @@ import { CSSTransition } from 'react-transition-group';
 import Confirm from '../../../baseUI/confirm/index';
 
 function PlayList(props) {
+  // 控制播放列表是否显示的
   const [isShow, setIsShow] = useState(false);
   //是否允许滑动事件生效
   const [canTouch, setCanTouch] = useState(true);
@@ -38,6 +39,7 @@ function PlayList(props) {
   const playListRef = useRef();
   const listWrapperRef = useRef();
   const confirmRef = useRef();
+  // scroll组件的dom对象
   const listContentRef = useRef();
 
   const {
@@ -49,7 +51,7 @@ function PlayList(props) {
     sequencePlayList: immutableSequencePlayList
   } = props;
 
-  const {clearPreSong} = props; //清空PreSong
+  const { clearPreSong } = props; //清空PreSong
 
   const {
     togglePlayListDispatch,
@@ -61,18 +63,22 @@ function PlayList(props) {
   } = props;
 
   const currentSong = immutableCurrentSong.toJS();
+  // 播放列表中的歌曲
   const playList = immutablePlayList.toJS();
+  // SongList列表中传过来的列表
   const sequencePlayList = immutableSequencePlayList.toJS();
 
+  // 切换模式
   const changeMode = (e) => {
     let newMode = (mode + 1) % 3;
+    // 顺序播放
     if (newMode === 0) {
       changePlayListDispatch(sequencePlayList);
       let index = findIndex(currentSong, sequencePlayList);
       changeCurrentIndexDispatch(index);
-    } else if (newMode === 1) {
+    } else if (newMode === 1) { // 单曲循环
       changePlayListDispatch(sequencePlayList);
-    } else if (newMode === 2) {
+    } else if (newMode === 2) { // 随机播放
       let newList = shuffle(sequencePlayList);
       let index = findIndex(currentSong, newList);
       changePlayListDispatch(newList);
@@ -81,16 +87,19 @@ function PlayList(props) {
     changeModeDispatch(newMode);
   };
 
+  // 点击播放当前的歌曲
   const handleChangeCurrentIndex = (index) => {
     if (currentIndex === index) return;
     changeCurrentIndexDispatch(index);
   };
 
+  // 点击删除歌曲
   const handleDeleteSong = (e, song) => {
     e.stopPropagation();
     deleteSongDispatch(song);
   };
 
+  // 获取当前播放的歌曲显示的图标
   const getCurrentIcon = item => {
     //是否是当前正在播放的歌曲
     const current = currentSong.id === item.id;
@@ -107,13 +116,16 @@ function PlayList(props) {
     );
   };
 
+  // 调用是否清空
   const handleShowClear = () => {
     confirmRef.current.show();
   };
 
+  // 
   const handleConfirmClear = () => {
     clearDispatch();
     //修复清空播放列表后点击同样的歌曲，播放器不出现的bug
+    // 都是同一首歌 点击不会播放
     clearPreSong();
   };
 
@@ -138,7 +150,7 @@ function PlayList(props) {
   };
 
   const handleScroll = (pos) => {
-    //只有当内容偏移量位0的时候才能下滑关闭PlayList 否则一边内容在移动一边列表在移动 出现bug
+    //只有当内容偏移量为0的时候才能下滑关闭PlayList 否则一边内容在移动一边列表在移动 出现bug
     let state = pos.y === 0;
     setCanTouch(state);
   };
@@ -147,6 +159,7 @@ function PlayList(props) {
     if (!canTouch || initialed) return;
     listWrapperRef.current.style["transition"] = "";
     setDistance(0);
+    // 开始触摸的点 距离窗口顶部的距离
     setStartY(e.nativeEvent.touches[0].pageY);//记录y值
     setInitialed(true);
   };
@@ -218,6 +231,7 @@ function PlayList(props) {
         <div
           className="list_wrapper"
           ref={listWrapperRef}
+          // 点击需要阻止事件冒泡
           onClick={e => e.stopPropagation()}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -269,7 +283,9 @@ function PlayList(props) {
 }
 
 const mapStateToProps = state => ({
+  // 获取当前的索引
   currentIndex: state.getIn(['player', 'currentIndex']),
+  // 获取当前的歌曲
   currentSong: state.getIn(['player', 'currentSong']),
   playList: state.getIn(['player', 'playList']),//播放列表
   sequencePlayList: state.getIn(['player', 'sequencePlayList']), //顺序排列时的播放列表
@@ -282,6 +298,7 @@ const mapDispatchToProps = dispatch => {
     togglePlayListDispatch(data) {
       dispatch(changeShowPlayList(data));
     },
+    // 把当前的索引给redux
     changeCurrentIndexDispatch(data) {
       dispatch(changeCurrentIndex(data));
     },
@@ -299,6 +316,8 @@ const mapDispatchToProps = dispatch => {
     clearDispatch() {
       //1.清空两个列表
       dispatch(changePlayList([]));
+      // 歌曲播放处理基本用的就是playList 
+      // sequencePlayList基本都是用来处理播放模式的 静态展示 
       dispatch(changeSequecePlayList([]));
       //2.初始currentIndex
       dispatch(changeCurrentIndex(-1));
@@ -312,4 +331,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(PlayList));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(PlayList));

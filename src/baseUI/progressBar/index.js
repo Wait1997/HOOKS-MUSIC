@@ -39,6 +39,7 @@ const ProgressBarWrapper = styled.div`
 function ProgressBar(props) {
   const { percent } = props;
 
+  // 设置一个触摸手指对象
   const [touch, setTouch] = useState({});
   const progressBar = useRef();
   const progress = useRef();
@@ -48,6 +49,7 @@ function ProgressBar(props) {
 
   const progressBtnWidth = 16;
 
+  // 当播放进度改变时 执行此钩子函数
   useEffect(() => {
     if (percent >= 0 && percent <= 1 && !touch.initiated) {
       const barWidth = progressBar.current.clientWidth - progressBtnWidth;
@@ -59,10 +61,13 @@ function ProgressBar(props) {
 
   //处理进度条的偏移
   const _offset = (offsetWidth) => {
+    // 进度条当前的长度
     progress.current.style.width = `${offsetWidth}px`;
+    // 进度按钮当前的移动偏移量
     progressBtn.current.style.transform = `translate3d(${offsetWidth}px, 0, 0)`;
   };
 
+  // 手指触摸时
   const progressTouchStart = (e) => {
     const startTouch = {};
     startTouch.initiated = true; //initial为true 表示滑动动作开始了
@@ -72,6 +77,7 @@ function ProgressBar(props) {
   };
 
   const progressTouchMove = (e) => {
+    // 触摸对象不能存在时return
     if (!touch.initiated) return;
     //滑动距离
     const deltaX = e.touches[0].pageX - touch.startX;
@@ -81,6 +87,7 @@ function ProgressBar(props) {
   };
 
   const progressTouchEnd = (e) => {
+    // 把state中的私有数据做深拷 不要直接修改数据
     const endTouch = JSON.parse(JSON.stringify(touch));
     endTouch.initiated = false;
     setTouch(endTouch);
@@ -89,13 +96,16 @@ function ProgressBar(props) {
 
   const progressClick = (e) => {
     const rect = progressBar.current.getBoundingClientRect();
+    // 元素左边到视窗左边的距离为 rect.left
     const offsetWidth = e.pageX - rect.left;
     _offset(offsetWidth);
     _changePercent();
   };
 
+  // 触摸结束或者点击结束执行
   const _changePercent = () => {
     const barWidth = progressBar.current.clientWidth - progressBtnWidth;
+    // 计算新的百分比
     const curPercent = progress.current.clientWidth / barWidth; //新的进度计算
     props.percentChange(curPercent); // 把新的进度传给回调函数并执行
   };

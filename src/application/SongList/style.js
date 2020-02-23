@@ -4,15 +4,16 @@ import style from '../../assets/global-style';
 export const SongList = styled.div`
   border-radius: 10px;
   opacity: 0.98;
-  ${props => props.showBackground ? `background: ${style["highlight-background-color"]}`: ""}
-  .first_line{
+  ${props => props.showBackground ? `background: ${style["highlight-background-color"]}`: ""};
+  .first_line {
     box-sizing: border-box;
     padding: 10px 0;
     margin-left: 10px;
     position: relative;
+    display: flex;
     justify-content: space-between;
     border-bottom: 1px solid ${style["border-color"]};
-    .play_all{
+    .play_all {
       display: inline-block;
       line-height: 24px;
       color: ${style["font-color-desc"]};
@@ -33,7 +34,7 @@ export const SongList = styled.div`
       display: flex;
       align-items: center;
       position: absolute;
-      right: 0; top :0; bottom: 0;
+      right: 0; top: 0; bottom: 0;
       width: 130px;
       line-height: 34px;
       background: ${style["theme-color"]};
@@ -56,7 +57,7 @@ export const SongList = styled.div`
       background: ${style["background-color"]};
       color: ${style["font-color-desc"]};
     }
-  }
+}
 `;
 
 export const SongItem = styled.ul`
@@ -93,4 +94,4 @@ export const SongItem = styled.ul`
       }
     }
   }
-`
+`;

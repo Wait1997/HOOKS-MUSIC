@@ -58,6 +58,7 @@ const handleDeleteSong = (state, song) => {
   // 这里深拷贝是基于纯函数的考虑，不对参数state做修改
   const playList = JSON.parse(JSON.stringify(state.get('playList').toJS()));
   const sequenceList = JSON.parse(JSON.stringify(state.get('sequencePlayList').toJS()));
+  // 基本类型不能存在地址引用
   let currentIndex = state.get('currentIndex');
   //找对应歌曲在播放列表中的索引
   const fpIndex = findIndex(song, playList);

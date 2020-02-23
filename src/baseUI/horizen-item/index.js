@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import {List,ListItem} from './style';
 
 function Horizen(props) {
+  // 初始化总宽度的控制
   const [refreshCategoryScroll, setRefreshCategoryScroll] = useState(false);
   const { list, oldVal, title } = props;
   const { handleClick } = props;
@@ -14,10 +15,13 @@ function Horizen(props) {
   useEffect(() => {
     let categoryDom = Category.current;
     let tagElem = categoryDom.querySelectorAll("span");
+    // 初始化宽度
     let totalWidth = 0;
+    // dom元素伪数组转换成数组
     Array.from(tagElem).forEach(ele => {
       totalWidth += ele.offsetWidth;
     });
+    // 元素之间的间距
     totalWidth += 2;
     categoryDom.style.width = `${totalWidth}px`;
     setRefreshCategoryScroll(true);

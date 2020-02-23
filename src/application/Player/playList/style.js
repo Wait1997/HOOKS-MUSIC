@@ -56,7 +56,7 @@ export const ListHeader = styled.div`
     >div {
       flex: 1;
       .text {
-        fle: 1;
+        flex: 1;
         font-size: ${style["font-size-m"]};
         color: ${style["font-color-desc"]};
       }

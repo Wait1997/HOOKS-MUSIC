@@ -12,6 +12,7 @@ const Container = styled.div`
     color: ${style["theme-color"]};
     font-size: 14px;
     display: none;
+    /*transition: 属性名  过渡效果时间 时间速度曲线  开始时间*/
     transition: transform 1s cubic-bezier(.62, -0.1, .86, .57);
     transform: translate3d(0, 0, 0);
     >div {
@@ -23,7 +24,7 @@ const Container = styled.div`
 const MusicNote = forwardRef((props, ref) => {
   const iconsRef = useRef();
   //容器中有3个音符，也就是同时只能有3个音符下落
-  const ICON_NUMBER = 10;
+  const ICON_NUMBER = 3;
 
   const transform = prefixStyle("transform");
 
@@ -58,8 +59,9 @@ const MusicNote = forwardRef((props, ref) => {
   // 落下动画逻辑
   const startAnimation = ({ x, y }) => {
     for (let i = 0; i < ICON_NUMBER; i++) {
-      let domArray = [].slice.call(iconsRef.current.children)
-      let item = domArray[i]
+      // 拿到Container下面所有的子元素
+      let domArray = [].slice.call(iconsRef.current.children);
+      let item = domArray[i];
       // 选择一个空闲的元素来开始动画
       if (item.running === false) {
         item.style.left = x + "px";

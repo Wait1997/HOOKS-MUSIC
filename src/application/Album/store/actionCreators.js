@@ -7,11 +7,13 @@ const changeCurrentAlbum = (data) => ({
   data: fromJS(data)
 });
 
+// 上拉加载
 export const changePullUpLoading = (data) => ({
   type: CHANGE_PULLUP_LOADING,
   data
 });
 
+// 进场loading
 export const changeEnterLoading = (data) => ({
   type: CHANGE_ENTER_LOADING,
   data
@@ -32,9 +34,12 @@ export const getAlbumList = (id) => {
     try {
       let result = await getAlbumDetailRequest(id);
       let data = result.playlist;
+      // dispatch整个playlist数据到redux
       dispatch(changeCurrentAlbum(data));
+      // 数据请求回来后loading为false
       dispatch(changeEnterLoading(false));
       dispatch(changeStartIndex(0));
+      // 歌单中歌曲的总数目
       dispatch(changeTotalCount(data.tracks.length));
     } catch (e) {
       console.log(`${e}获取album数据失败`);

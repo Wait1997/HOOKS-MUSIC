@@ -5,7 +5,11 @@ import Header from '../../baseUI/header/index';
 import Scroll from '../../baseUI/scroll/index';
 import AlbumDetail from '../../components/album-detail/index';
 import { connect } from 'react-redux';
-import { getAlbumList, changePullUpLoading, changeEnterLoading } from './store/actionCreators';
+import {
+  getAlbumList,
+  changePullUpLoading,
+  changeEnterLoading
+} from './store/actionCreators';
 import Loading from '../../baseUI/loading/index';
 import { EnterLoading } from '../Singers/style';
 import style from '../../assets/global-style';
@@ -21,7 +25,9 @@ function Album(props) {
   const headerEl = useRef();
   const musicNoteRef = useRef();
 
+  // 获取歌曲id
   const id = props.match.params.id;
+  // console.log(id);
 
   const { currentAlbum, enterLoading, pullUpLoading, songsCount } = props;
   const { getAlbumDataDispatch, changePullUpLoadingStateDispatch } = props;
@@ -33,9 +39,13 @@ function Album(props) {
   }, [getAlbumDataDispatch, id]);
 
   const handleScroll = useCallback(pos => {
+    // pos.y 就是滑动纵坐标方向的距离(负值)
     let minScrollY = -HEADER_HEIGHT;
+    // 滚动距离与头部高度的%比
     let percent = Math.abs(pos.y / minScrollY);
+    // 获取头部的dom对象
     let headerDom = headerEl.current;
+    // 滚动距离大于Header的高度时(负值)
     if (pos.y < minScrollY) {
       headerDom.style.backgroundColor = style["theme-color"];
       headerDom.style.opacity = Math.min(1, (percent - 1) / 2);
@@ -116,4 +126,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 // 将ui组件包装成容器组件
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Album));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Album));

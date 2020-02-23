@@ -20,6 +20,7 @@ export const getRankList = () => {
   return async (dispatch) => {
     let result = await getRankListRequest();
     let list = result && result.list;
+    // 请求回来的数据dispatch到redux
     dispatch(changeRankList(list));
     dispatch(changeLoading(false));
   };

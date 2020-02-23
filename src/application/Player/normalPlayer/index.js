@@ -20,6 +20,7 @@ import { playMode, list } from '../../../api/config';
 import Scroll from '../../../baseUI/scroll/index';
 
 function NormalPlayer(props) {
+  // 属性
   const {
     song,
     full,
@@ -34,6 +35,7 @@ function NormalPlayer(props) {
     speed
   } = props;
 
+  // 方法
   const {
     toggleFullScreenDispatch,
     togglePlayListDispatch,
@@ -48,9 +50,12 @@ function NormalPlayer(props) {
   //处理transform的浏览器兼容问题
   const transform = prefixStyle("transform");
 
+  // 拿到最外层的dom
   const normalPlayerRef = useRef();
+  // 中间部分的dom
   const cdWrapperRef = useRef();
 
+  // scroll组件的dom
   const lyricScrollRef = useRef();
   const lyricLineRefs = useRef([]);
   const currentState = useRef(0);
@@ -68,6 +73,10 @@ function NormalPlayer(props) {
     }
   }, [currentLineNum]);
 
+  /**
+   * 1. 中间cd消失,下方播放条显示，这是属于`过渡`
+   * 2. `过渡`开始的同时，cd同时移动、放大、缩小到左下方播放条 ，这属于`动画`
+   */
   //启用帧动画
   const _getPosAndScale = () => {
     const targetWidth = 40;
@@ -75,6 +84,7 @@ function NormalPlayer(props) {
     const paddingBottom = 30;
     const paddingTop = 80;
     const width = window.innerWidth * 0.8;
+    // 从cd到mini的cd的缩放比例
     const scale = targetWidth / width;
     // 两个圆心的横坐标距离和纵坐标距离
     const x = -(window.innerWidth / 2 - paddingLeft);
@@ -86,20 +96,25 @@ function NormalPlayer(props) {
     };
   };
 
+  // enter是指当 cd从隐藏到显示的动画
   const enter = () => {
     normalPlayerRef.current.style.display = "block";
     const { x, y, scale } = _getPosAndScale();
     let animation = {
+      // 第0帧的时候，先让图片缩小，显示在左下角
       0: {
-        transform: `translate3d(${x}px,${y}px,0) scale(${scale})`
+        transform: `translate3d(${x}px, ${y}px, 0) scale(${scale})`
       },
+      // 60%的时候，让图片回到cd中心，变大
       60: {
         transform: `translate3d(0, 0, 0) scale(1.1)`
       },
+      // 变回原来的尺寸，会有一个回弹的效果
       100: {
         transform: `translate3d(0, 0, 0) scale(1)`
       }
     };
+    // 动画的一些配置
     animations.registerAnimation({
       name: "move",
       animation,
@@ -108,16 +123,20 @@ function NormalPlayer(props) {
         easing: "linear"
       }
     });
+    //运行动画
     animations.runAnimation(cdWrapperRef.current, "move");
   };
 
   const afterEnter = () => {
     const cdWrapperDom = cdWrapperRef.current;
+    //运行完动画之后，注销掉动画
     animations.unregisterAnimation("move");
     cdWrapperDom.style.animation = "";
   };
 
+  // leave是指 cd从显示到隐藏的动画
   const leave = () => {
+    // 如果当前dom不存在return
     if (!cdWrapperRef.current) return;
     const cdWrapperDom = cdWrapperRef.current;
     cdWrapperDom.style.transition = "all 0.4s";
@@ -245,7 +264,7 @@ function NormalPlayer(props) {
         </Middle>
         <Bottom className="bottom">
           <List>
-            <span>倍速听歌</span>
+            <span>倍速播放</span>
             {
               list.map(item => {
                 return (

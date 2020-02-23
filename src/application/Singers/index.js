@@ -47,15 +47,20 @@ function Singers(props) {
     pullDownRefresh(category, pageCount);
   };
 
+  // 歌手分类
   const handleUpdateCatetory = (newVal) => {
+    // newVal每次子组件回调函数中点击传回来的新的值
     if (category === newVal) return;
+    // 每次点击之后提交新的值到redux
     updateCategory(newVal);
     scrollRef.current.refresh();
   };
 
+  // 字母分类
   const handleUpdateAlpha = (newVal) => {
     if (alpha === newVal) return;
     updateAlpha(newVal);
+    //scroll组件暴露的方法refresh()
     scrollRef.current.refresh();
   };
 
@@ -102,7 +107,7 @@ function Singers(props) {
           oldVal={alpha}
         />
       </NavContainer>
-      <ListContainer>
+      <ListContainer play={songsCount}>
         <Scroll
           onScroll={forceCheck}
           pullUp={handlePullUp}
@@ -138,6 +143,7 @@ const mapDispatchToProps = (dispatch) => {
     getHotSinger() {
       dispatch(getHotSingerList());
     },
+    // newVal为点击时的新值
     updateCategory(newVal) {
       dispatch(changeCategory(newVal));
       dispatch(changeListOffset(0));
@@ -153,6 +159,7 @@ const mapDispatchToProps = (dispatch) => {
     // 滑动最底部刷新部分的处理
     pullUpRefresh(hot, count) {
       dispatch(changePullUpLoading(true));
+      console.log(hot);
       if (hot) {
         dispatch(refreshMoreHotSingerList());
       } else {
@@ -172,4 +179,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Singers));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(React.memo(Singers));

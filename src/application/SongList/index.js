@@ -3,11 +3,13 @@ import { SongList, SongItem } from './style';
 import { getName } from '../../api/utils';
 import { ONE_PAGE_COUNT } from '../../api/config';
 import { connect } from 'react-redux';
-import { changePlayList, changeCurrentIndex, changeSequecePlayList } from '../../application/Player/store/actionCreators';
+import {
+  changePlayList,
+  changeCurrentIndex,
+  changeSequecePlayList
+} from '../../application/Player/store/actionCreators';
 
 const SongsList = React.forwardRef((props, refs) => {
-
-  // console.log(props);
 
   const [startIndex, setStartIndex] = useState(0);
 
@@ -16,7 +18,14 @@ const SongsList = React.forwardRef((props, refs) => {
   // 接受触发动画的函数
   const { musicAnimation } = props;
 
-  const { changePlayListDispatch, changeCurrentIndexDispatch, changeSequecePlayListDispatch } = props;
+  const {
+    // 播放列表
+    changePlayListDispatch,
+    // 当前歌曲的索引
+    changeCurrentIndexDispatch,
+    // 顺序列表
+    changeSequecePlayListDispatch
+  } = props;
 
   const totalCount = songs.length;
 
@@ -27,9 +36,13 @@ const SongsList = React.forwardRef((props, refs) => {
   }, [loading, startIndex, totalCount]);
 
   const selectItem = (e, index) => {
+    // 播放列表
     changePlayListDispatch(songs);
+    // 顺序列表
     changeSequecePlayListDispatch(songs);
+    // 在当前列表中的索引
     changeCurrentIndexDispatch(index);
+    // 获取当前点击位置距离x,y的坐标(音符下落)
     musicAnimation(e.nativeEvent.clientX, e.nativeEvent.clientY);
   };
 

@@ -12,8 +12,6 @@ import { EnterLoading } from '../Singers/style';
 
 function Recommend(props) {
 
-  console.log(props);
-
   const { bannerList, recommendList, enterLoading, songsCount } = props;
 
   const { getBannerDataDispatch, getRecommendListDataDispatch } = props;

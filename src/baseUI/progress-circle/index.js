@@ -19,6 +19,7 @@ const CircleWrapper = styled.div`
 `;
 
 function ProgressCircle(props) {
+  // radius为32
   const { radius, percent } = props;
   //整个背景的周长
   const dashArray = Math.PI * 100;

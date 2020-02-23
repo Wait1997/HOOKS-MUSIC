@@ -7,10 +7,10 @@
  * }
  */
 
-const timeExp = /\[(\d{2,}):(\d{2})(?:\.(\d{2,3}))?]/g
+const timeExp = /\[(\d{2,}):(\d{2})(?:\.(\d{2,3}))?]/g;
 
-const STATE_PAUSE = 0
-const STATE_PLAYING = 1
+const STATE_PAUSE = 0;
+const STATE_PLAYING = 1;
 
 const tagRegMap = {
   title: 'ti',

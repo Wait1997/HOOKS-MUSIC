@@ -1,4 +1,11 @@
-import React, { forwardRef, useState, useEffect, useRef, useImperativeHandle, useMemo } from "react"
+import React, {
+  forwardRef,
+  useState,
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  useMemo
+} from "react";
 import PropTypes from "prop-types";
 import BScroll from "better-scroll";
 import styled from 'styled-components';
@@ -64,13 +71,13 @@ const Scroll = forwardRef((props, ref) => {
     return () => {
       setBScroll(null);
     };
-    // eslint-disable-next-line
   }, []);
 
   //给实例绑定scroll事件
   useEffect(() => {
     if (!bScroll || !onScroll) return;
     bScroll.on('scroll', (scroll) => {
+      // 子组件调用父组件传递回调函数
       onScroll(scroll);
     })
     return () => {
@@ -78,7 +85,7 @@ const Scroll = forwardRef((props, ref) => {
     };
   }, [onScroll, bScroll]);
 
-  //调用上拉刷新的函数
+  //调用上拉加载的函数
   useEffect(() => {
     if (!bScroll || !pullUp) return;
     bScroll.on('scrollEnd', () => {

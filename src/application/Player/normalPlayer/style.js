@@ -27,6 +27,7 @@ export const NormalPlayerContainer = styled.div`
     height: 100%;
     z-index: -1;
     opacity: 0.6;
+    /*滤镜属性*/
     filter: blur(20px);
     &.layer {
       background: ${style["font-color-desc"]};
@@ -57,6 +58,7 @@ export const NormalPlayerContainer = styled.div`
     opacity: 0;
   }
 `;
+
 export const Top = styled.div`
   box-sizing: border-box;
   position: absolute;
@@ -84,18 +86,18 @@ export const Top = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 10px;
-  }
-  .title {
-    line-height: 25px;
-    font-size: ${style["font-size-l"]};
-    color: ${style["font-color-desc"]};
-    ${style.noWrap()};
-  }
-  .subtitle {
-    line-height: 20px;
-    font-size: ${style["font-size-m"]};
-    color: ${style["font-color-desc-v2"]};
-    ${style.noWrap()};
+    .title {
+      line-height: 25px;
+      font-size: ${style["font-size-l"]};
+      color: ${style["font-color-desc"]};
+      ${style.noWrap()};
+    }
+    .subtitle {
+      line-height: 20px;
+      font-size: ${style["font-size-m"]};
+      color: ${style["font-color-desc-v2"]};
+      ${style.noWrap()};
+    }
   }
 `;
 export const Middle = styled.div`
@@ -123,6 +125,7 @@ export const Middle = styled.div`
     opacity: 0;
   }
 `;
+
 export const CDWrapper = styled.div`
   margin: auto;
   position: absolute;
@@ -185,6 +188,7 @@ export const CDWrapper = styled.div`
     color: rgba(255, 255, 255, 0.5);
   }
 `;
+
 export const LyricContainer = styled.div`
   position: absolute;
   left: 0;
@@ -195,6 +199,7 @@ export const LyricContainer = styled.div`
   /* mask-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,hsla(0,0%,100%,0)),color-stop(10%,hsla(0,0%,100%,.6)),color-stop(25%,#fff),color-stop(75%,#fff),color-stop(85%,hsla(0,0%,100%,.6)),to(hsla(0,0%,100%,0)));
   mask-image: linear-gradient(linear,left top,left bottom,color-stop(0,hsla(0,0%,100%,0)),color-stop(10%,hsla(0,0%,100%,.6)),color-stop(25%,#fff),color-stop(75%,#fff),color-stop(85%,hsla(0,0%,100%,.6)),to(hsla(0,0%,100%,0))); */
 `;
+
 export const LyricWrapper = styled.div`
   position: absolute;
   left: 0;
@@ -208,7 +213,7 @@ export const LyricWrapper = styled.div`
     white-space: normal;
     font-size: ${style["font-size-l"]};
     &.current {
-      color: #fff;
+      color: ${style["theme-color"]};
     }
     &.pure{
       position: relative;
@@ -216,11 +221,13 @@ export const LyricWrapper = styled.div`
     }
   }
 `;
+
 export const Bottom = styled.div`
   position: absolute;
   bottom: 50px;
   width: 100%;
 `;
+
 export const ProgressWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -244,6 +251,7 @@ export const ProgressWrapper = styled.div`
     flex: 1;
   }
 `;
+
 export const Operators = styled.div`
   display: flex;
   align-items: center;
@@ -293,7 +301,8 @@ export const List = styled.div`
     font-size: ${style["font-size-m"]};
     vertical-align: middle;
   }
-`
+`;
+
 export const ListItem = styled.span`
   flex: 0 0 auto;
   font-size: ${style["font-size-m"]};
@@ -305,4 +314,4 @@ export const ListItem = styled.span`
     border: 1px solid ${style["theme-color"]};
     opacity: 0.8;
   }
-`
+`;

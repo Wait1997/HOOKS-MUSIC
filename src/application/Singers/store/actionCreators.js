@@ -59,6 +59,7 @@ export const getHotSingerList = () => {
       const data = result.artists;
       dispatch(changeSingerList(data));
       dispatch(changeEnterLoading(false));
+      // 下拉刷新
       dispatch(changePullDownLoading(false));
       dispatch(changeListOffset(data.length));
     } catch (e) {
@@ -71,10 +72,13 @@ export const getHotSingerList = () => {
 export const refreshMoreHotSingerList = () => {
   return async (dispatch, getState) => {
     try {
+      // 获取偏移量
       const offset = getState().getIn(['singers', 'listOffset']);
       const singerList = getState().getIn(['singers', 'singerList']).toJS();
-      let result = getHotSingerListRequest(offset);
+      let result = await getHotSingerListRequest(offset);
+      // 拼接数据 上拉刷新时加载数据
       const data = [...singerList, ...result.artists];
+      // 再放回redux
       dispatch(changeSingerList(data));
       dispatch(changePullUpLoading(false));
       dispatch(changeListOffset(data.length));
@@ -113,6 +117,7 @@ export const refreshMoreSingerList = () => {
       let result = await getSingerListRequest(category, alpha, offset);
       const data = [...singerList, ...result.artists];
       dispatch(changeSingerList(data));
+      // 上拉加载
       dispatch(changePullUpLoading(false));
       dispatch(changeListOffset(data.length));
     } catch (e) {

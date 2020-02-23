@@ -8,6 +8,7 @@ const AlbumComponent = lazy(() => import('../application/Album'));
 const SingerComponent = lazy(() => import('../application/Singer'));
 const SearchComponent = lazy(() => import('../application/Search'));
 
+// 路由懒加载
 const SuspenseComponent = Component => props => {
   return (
     <Suspense fallback={null}>

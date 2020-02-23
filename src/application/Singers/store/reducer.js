@@ -12,6 +12,7 @@ const defaultState = fromJS({
 });
 
 export default (state = defaultState, action) => {
+  // console.log(action);
   switch(action.type) {
     case actionTypes.CHANGE_CATOGORY:
       return state.set('category', action.data);
